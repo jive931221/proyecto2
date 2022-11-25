@@ -1,4 +1,4 @@
-const ingresos = [
+let ingresos = [
   new Ingreso('trabajo extra', 1),
   new Ingreso('venta de mi riñon', 10)
 ];
@@ -125,10 +125,42 @@ const elimiarEgreso=(id)=>{
   var indiceEliminar = egresos.findIndex(indice => indice.valor === id)
   console.log(egresos[indiceEliminar])
   egresos.splice(indiceEliminar, 1)
-  cargarCabecero();
   cargarEgreso();
+  cargarCabecero();
+ 
 }
 
+
+//Agregar datos
+const agregarDatos=()=>{
+var forma= document.getElementById("forma");
+var tipo=document.querySelector ("#tipo").value;
+var descripcion= document.getElementById("descripcion").value;
+var valor=Number(document.getElementById("valor").value);
+
+if(tipo==="ingresos"){
+agregar= new Ingreso(descripcion,valor)
+baseDato()
+cargarCabecero()
+cargarIngresos()
+console.log(tipo)
+}
+else{
+agregaregresos=new Egreso(descripcion,valor)
+baseDatoegresos()
+cargarCabecero()
+cargarEgreso()
+}
+
+}
+function baseDato(){
+  ingresos.push(agregar)
+  
+}
+function baseDatoegresos(){
+  egresos.push(agregaregresos)
+  
+}
 
 
 

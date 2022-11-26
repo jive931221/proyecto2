@@ -1,6 +1,6 @@
 let ingresos = [
   new Ingreso('trabajo extra', 1),
-  new Ingreso('venta de mi riñon', 10)
+  new Ingreso('venta de chacharas', 10)
 ];
 const egresos = [
   new Egreso('Renta', 1),
@@ -121,45 +121,61 @@ const crearEgresosHTML = (egreso) => {
   return egresosHTML
 }
 //Eliminar datos de egreso
-const elimiarEgreso=(id)=>{
+const elimiarEgreso = (id) => {
   var indiceEliminar = egresos.findIndex(indice => indice.valor === id)
   console.log(egresos[indiceEliminar])
   egresos.splice(indiceEliminar, 1)
   cargarEgreso();
   cargarCabecero();
- 
+
 }
 
 
 //Agregar datos
-const agregarDatos=()=>{
-var forma= document.getElementById("forma");
-var tipo=document.querySelector ("#tipo").value;
-var descripcion= document.getElementById("descripcion").value;
-var valor=Number(document.getElementById("valor").value);
+const agregarDatos = () => {
+  var forma = document.getElementById("forma");
+  var tipo = document.querySelector("#tipo").value;
+  var descripcion = document.getElementById("descripcion").value;
+  var valor = Number(document.getElementById("valor").value);
 
-if(tipo==="ingresos"){
-agregar= new Ingreso(descripcion,valor)
-baseDato()
-cargarCabecero()
-cargarIngresos()
-console.log(tipo)
-}
-else{
-agregaregresos=new Egreso(descripcion,valor)
-baseDatoegresos()
-cargarCabecero()
-cargarEgreso()
-}
 
+
+  if (descripcion === "") {
+    descripcion = alert("Ingresa la descripcion")
+    forma.reset()
+  }
+  if (valor === 0) {
+    alert("Ingresa un valor mayor a cero");
+    return forma.reset()
+  }
+  else {
+
+    if (tipo === "ingresos") {
+      agregar = new Ingreso(descripcion, valor)
+      baseDato()
+      cargarCabecero()
+      cargarIngresos()
+
+    }
+    else {
+      agregaregresos = new Egreso(descripcion, valor)
+      baseDatoegresos()
+      cargarCabecero()
+      cargarEgreso()
+    }
+    forma.reset()
+  }
 }
-function baseDato(){
+function baseDato() {
   ingresos.push(agregar)
-  
+
 }
-function baseDatoegresos(){
+function baseDatoegresos() {
   egresos.push(agregaregresos)
-  
+}
+
+const limpiarImput = () => {
+  descripcion = document.getElementById("descripcion").innerHTML = ('');
 }
 
 
@@ -189,43 +205,6 @@ function baseDatoegresos(){
 
 
 
-
-/*
-let totalIngreso = () => {
-  totalIngreso = 0
-  for (igre in ingresos) {
-    totalIngreso += ingresos[igre];
-  }
-  return totalIngreso.toLocaleString('es-mx', {
-    style: "currency",
-    currency: "MXN"
-  })
-}
-let totalEgresos = () => {
-  totalEgresos = 0
-  for (egre in egresos) {
-    totalEgresos += egresos[egre];
-  }
-  return totalEgresos.toLocaleString('es-mx', {
-    style: "currency",
-    currency: "MXN"
-  })
-}
-
-let cargarCabecero = () => {
-  console.log(totalIngreso());
-  console.log(totalEgresos());
-  let presupuesto = Number(totalIngreso - totalEgresos).toLocaleString('es-mx', {
-    style: "currency",
-    currency: "MXN"
-  })
-  let porcetajeEgreso = Number(totalEgresos / totalIngreso).toLocaleString('es-mx', {
-    style: "percent", minimumFractionDigits: 2
-  });
-  console.log(presupuesto)
-  console.log(porcetajeEgreso)
-}
-*/
 
 
 

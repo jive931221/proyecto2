@@ -1,6 +1,7 @@
 let ingresos = [
   new Ingreso('trabajo extra', 1),
-  new Ingreso('venta de chacharas', 10)
+  new Ingreso('venta de ropa', 1),
+  
 ];
 const egresos = [
   new Egreso('Renta', 1),
@@ -20,12 +21,6 @@ const cargarCabecero = () => {
   document.getElementById('porcentaje').innerHTML = formatoPorcentaje(porcetajeEgreso);
   document.getElementById('ingresos').innerHTML = formatoMoneda(totalIngreso());
   document.getElementById('egresos').innerHTML = formatoMoneda(totalEgresos());
-
-  //al final se tiene que ir estas consolas
-  console.log(formatoMoneda(presupuesto))
-  console.log(formatoPorcentaje(porcetajeEgreso));
-  console.log(formatoMoneda(totalIngreso()));
-  console.log(formatoMoneda(totalEgresos()));
 }
 
 const totalIngreso = () => {
@@ -85,8 +80,8 @@ const crearIngresoHTML = (ingreso) => {
 
 //Eliminar datos de ingreso
 const eliminarIngreso = (id) => {
-  var indiceEliminar = ingresos.findIndex(indice => indice.valor === id)
-  console.log(ingresos[indiceEliminar])
+  var indiceEliminar = ingresos.findIndex(indice => indice.id === id)
+  console.log(indiceEliminar)
   ingresos.splice(indiceEliminar, 1)
   cargarCabecero()
   cargarIngresos()
@@ -108,7 +103,6 @@ const crearEgresosHTML = (egreso) => {
 <div class="elemento_descripcion">${egreso.descripcion}</div>
 <div class="derecha limpiarEstilos">
     <div class="elemento_valor">-${formatoMoneda(egreso.valor)}</div>
-    <div class="elemento_porcentaje">21%</div>
     <div class="elemento_eliminar">
         <button class="elemento_eliminar--btn">
             <ion-icon name="close-circle-outline" 
@@ -122,7 +116,7 @@ const crearEgresosHTML = (egreso) => {
 }
 //Eliminar datos de egreso
 const elimiarEgreso = (id) => {
-  var indiceEliminar = egresos.findIndex(indice => indice.valor === id)
+  var indiceEliminar = egresos.findIndex(indice => indice.id === id)
   console.log(egresos[indiceEliminar])
   egresos.splice(indiceEliminar, 1)
   cargarEgreso();
@@ -140,13 +134,15 @@ const agregarDatos = () => {
 
 
 
-  if (descripcion === "") {
-    descripcion = alert("Ingresa la descripcion")
-    forma.reset()
-  }
-  if (valor === 0) {
-    alert("Ingresa un valor mayor a cero");
-    return forma.reset()
+  if (descripcion === "" || valor <= 0) {
+    if (descripcion === "") {
+      alert("Ingresa la descripción")
+    }
+    else if (valor <= 0) {
+      alert("El valor debe ser mayor a 0")
+      
+    }
+   
   }
   else {
 
@@ -165,7 +161,9 @@ const agregarDatos = () => {
     }
     forma.reset()
   }
+ 
 }
+
 function baseDato() {
   ingresos.push(agregar)
 
@@ -174,9 +172,7 @@ function baseDatoegresos() {
   egresos.push(agregaregresos)
 }
 
-const limpiarImput = () => {
-  descripcion = document.getElementById("descripcion").innerHTML = ('');
-}
+
 
 
 
